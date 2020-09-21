@@ -1,0 +1,11 @@
+body {
+  background-color: #eaeaea;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100vh;
+}
