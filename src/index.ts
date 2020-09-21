@@ -1,3 +1,9 @@
-import { drawGrid, context } from "./factories/canvas";
+import grid from "./models/Grid";
 
-drawGrid();
+function init() {
+  grid.render();
+
+  requestAnimationFrame(init);
+}
+
+requestAnimationFrame(init);

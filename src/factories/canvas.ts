@@ -1,16 +1,7 @@
-import $ from "../utils/$";
-import {
-  colsCount,
-  rowsCount,
-  cellSize,
-  fillColor,
-  gridColor,
-  hoveredGridColor,
-} from "../config";
+import { rootElement } from "../utils/index";
+import { colsCount, rowsCount, cellSize, fillColor } from "../config";
 
 import mouseOnCanvas from "../helpers/mouseOnCanvas";
-
-const rootElement = $("#root")[0];
 
 function createCanvas() {
   const width = colsCount * cellSize;
@@ -26,25 +17,8 @@ function createCanvas() {
 
   canvasElement.addEventListener("mousemove", mouseMoveHandler);
 
-  mouseOnCanvas.addObserver(drawHoveredCell);
-
   function clearCanvas() {
     context.clearRect(0, 0, width, height);
-  }
-
-  function drawGrid() {
-    for (let col = 0; col < colsCount; col++) {
-      context.moveTo(col * cellSize, 0);
-      context.lineTo(col * cellSize, colsCount * cellSize);
-    }
-
-    for (let row = 0; row < rowsCount; row++) {
-      context.moveTo(0, row * cellSize);
-      context.lineTo(rowsCount * cellSize, row * cellSize);
-    }
-
-    context.strokeStyle = gridColor;
-    context.stroke();
   }
 
   function mouseMoveHandler(event: MouseEvent) {
@@ -54,8 +28,7 @@ function createCanvas() {
     mouseOnCanvas.setY(event.clientY - offsetTop);
   }
 
-  function drawHoveredCell() {
-    drawGrid();
+  /*   function drawHoveredCell() {
     const { x, y } = mouseOnCanvas.position;
 
     if (x > 0 && x < width && y > 0 && y < height) {
@@ -76,15 +49,14 @@ function createCanvas() {
       context.strokeStyle = hoveredGridColor;
       context.stroke();
     }
-  }
+  } */
 
   return {
     clearCanvas,
     context,
-    drawGrid,
   };
 }
 
 const canvas = createCanvas();
 
-export const { clearCanvas, context, drawGrid } = canvas;
+export const { clearCanvas, context } = canvas;
