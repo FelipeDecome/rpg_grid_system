@@ -1,9 +1,9 @@
-import { IElementPosition, TObservers } from "../types";
+import { IElementPosition, TObserver } from "../types";
 
 function initMouseOnCanvas() {
   const position: IElementPosition = { x: 0, y: 0 };
 
-  const observers: TObservers = [];
+  const observers: TObserver[] = [];
 
   function setX(x: number) {
     position.x = x;
@@ -15,13 +15,13 @@ function initMouseOnCanvas() {
     notifyObservers();
   }
 
-  function addObserver(observer: () => void) {
+  function addObserver(observer: TObserver) {
     observers.push(observer);
   }
 
   function notifyObservers() {
     if (observers && observers.length > 0)
-      observers.forEach(observer => observer());
+      observers.forEach((observer) => observer());
   }
 
   return {
