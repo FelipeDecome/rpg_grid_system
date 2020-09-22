@@ -3,4 +3,4 @@ export interface IElementPosition {
   y: number;
 }
 
-export type TObserver = () => void;
+export type TObserver = (position: IElementPosition) => void;

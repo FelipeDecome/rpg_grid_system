@@ -7,31 +7,31 @@ function initMouseOnCanvas() {
 
   function setX(x: number) {
     position.x = x;
-    notifyObservers();
   }
 
   function setY(y: number) {
     position.y = y;
-    notifyObservers();
+  }
+
+  function reset() {
+    setX(0);
+    setY(0);
   }
 
   function addObserver(observer: TObserver) {
     observers.push(observer);
   }
 
-  function notifyObservers() {
-    if (observers && observers.length > 0)
-      observers.forEach((observer) => observer());
+  function notifyChange(position: IElementPosition) {
+    observers.forEach((observer) => observer(position));
   }
 
   return {
     position,
     setX,
     setY,
-    addObserver,
+    reset,
   };
 }
 
-const mouseOnCanvas = initMouseOnCanvas();
-
-export default mouseOnCanvas;
+export default initMouseOnCanvas();

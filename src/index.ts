@@ -1,9 +1,3 @@
-import grid from "./models/Grid";
+import canvas from "./controllers/canvasController";
 
-function init() {
-  grid.render();
-
-  requestAnimationFrame(init);
-}
-
-requestAnimationFrame(init);
+canvas.render();
