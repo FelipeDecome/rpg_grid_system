@@ -8,8 +8,7 @@ import {
 } from "../config";
 import { rootElement } from "../utils/rootElement";
 
-import * as canvasHandlers from "../handlers/canvasHandlers";
-import mouseOnCanvas from "../helpers/mouseOnCanvas";
+import mouseMoveOnCanvas from "../helpers/mouseMoveOnCanvas";
 
 function createCanvas() {
   const width = colsCount * cellSize;
@@ -22,9 +21,6 @@ function createCanvas() {
   canvasElement.height = height;
   canvasElement.style.backgroundColor = fillColor;
   rootElement.append(canvasElement);
-
-  canvasElement.addEventListener("mousemove", canvasHandlers.onMouseMove);
-  canvasElement.addEventListener("mouseleave", canvasHandlers.onMouseLeave);
 
   function drawGrid() {
     for (let col = 0; col < colsCount; col++) {
@@ -44,7 +40,7 @@ function createCanvas() {
   function drawHoveredCell() {
     drawGrid();
 
-    const { x, y } = mouseOnCanvas.position;
+    const { x, y } = mouseMoveOnCanvas.position;
 
     if (
       x > 0 &&
@@ -75,15 +71,12 @@ function createCanvas() {
     context.clearRect(0, 0, width, height);
   }
 
-  function drawTokens() {
-    let image = new Image(cellSize, cellSize);
-    image.src =
-      "../../public/assets/images/009b877016c6815ef814afb4d9d9f852.jpg";
-  }
-
   function render() {
     drawGrid();
+    drawHoveredCell();
   }
+
+  mouseMoveOnCanvas.addObserver(render);
 
   return {
     clearCanvas,

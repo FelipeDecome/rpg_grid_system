@@ -1,16 +1,21 @@
 import { IElementPosition, TObserver } from "../types";
+import { onMouseMove } from "../handlers/canvasHandlers";
 
 function initMouseOnCanvas() {
   const position: IElementPosition = { x: 0, y: 0 };
 
   const observers: TObserver[] = [];
 
+  window.addEventListener("mousemove", onMouseMove);
+
   function setX(x: number) {
     position.x = x;
+    notifyChange();
   }
 
   function setY(y: number) {
     position.y = y;
+    notifyChange();
   }
 
   function reset() {
@@ -22,8 +27,8 @@ function initMouseOnCanvas() {
     observers.push(observer);
   }
 
-  function notifyChange(position: IElementPosition) {
-    observers.forEach((observer) => observer(position));
+  function notifyChange() {
+    observers.forEach(observer => observer(position));
   }
 
   return {
@@ -31,6 +36,7 @@ function initMouseOnCanvas() {
     setX,
     setY,
     reset,
+    addObserver,
   };
 }
 

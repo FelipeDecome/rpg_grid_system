@@ -1,14 +1,27 @@
-import mouseOnCanvas from "../helpers/mouseOnCanvas";
+import mouseMoveOnCanvas from "../helpers/mouseMoveOnCanvas";
 
 export function onMouseMove(event: MouseEvent) {
-  const { clientX, clientY } = event;
+  const isCanvas = isOnCanvas(event.target as HTMLCanvasElement);
 
-  const { offsetLeft, offsetTop } = event.target as HTMLCanvasElement;
-
-  mouseOnCanvas.setX(clientX - offsetLeft + window.scrollX);
-  mouseOnCanvas.setY(clientY - offsetTop + window.scrollY);
+  if (isCanvas) {
+    setMousePosition(event);
+  } else {
+    mouseMoveOnCanvas.reset();
+  }
 }
 
-export function onMouseLeave(event: MouseEvent) {
-  mouseOnCanvas.reset();
+function setMousePosition(event: MouseEvent) {
+  const { offsetLeft, offsetTop } = event.target as HTMLCanvasElement;
+
+  const { clientX, clientY } = event;
+  const { scrollX, scrollY } = window;
+
+  mouseMoveOnCanvas.setX(clientX - offsetLeft + scrollX);
+  mouseMoveOnCanvas.setY(clientY - offsetTop + scrollY);
+}
+
+function isOnCanvas(target: HTMLCanvasElement) {
+  const { nodeName } = target;
+
+  return nodeName === "CANVAS";
 }
