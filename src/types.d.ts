@@ -1,6 +1,8 @@
 export interface IElementPosition {
-  x: number;
-  y: number;
+  y?: number;
+  x?: number;
+  row?: number;
+  col?: number;
 }
 
 export type TObserver = (position: IElementPosition) => void;
