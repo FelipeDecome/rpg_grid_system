@@ -1,3 +1,6 @@
+import { IElementPositionOnScreen } from "../types";
+import { rootElement } from "../utils/rootElement";
+
 import {
   cellSize,
   colsCount,
@@ -6,9 +9,6 @@ import {
   hoveredGridColor,
   rowsCount,
 } from "../config";
-import { rootElement } from "../utils/rootElement";
-
-import mouseMoveOnCanvas from "../helpers/mouseMoveOnCanvas";
 
 function createCanvas() {
   const width = colsCount * cellSize;
@@ -37,10 +37,10 @@ function createCanvas() {
     context.stroke();
   }
 
-  function drawHoveredCell() {
+  function drawHoveredCell(position: IElementPositionOnScreen) {
     drawGrid();
 
-    const { x, y } = mouseMoveOnCanvas.position;
+    const { x, y } = position;
 
     if (
       x > 0 &&
@@ -71,17 +71,11 @@ function createCanvas() {
     context.clearRect(0, 0, width, height);
   }
 
-  function render() {
-    drawGrid();
-    drawHoveredCell();
-  }
-
-  mouseMoveOnCanvas.addObserver(render);
-
   return {
+    drawGrid,
+    drawHoveredCell,
     clearCanvas,
     context,
-    render,
   };
 }
 

@@ -1,4 +1,4 @@
-import { IElementPosition } from "../types";
+import { IElementPositionOnCanvas } from "../../types";
 import Token from "../Models/Token";
 
 let idCount: number = 0;
@@ -10,7 +10,7 @@ export default class TokenBuilder {
   private characterId: number;
   private source: string;
   private size: number;
-  private position: IElementPosition;
+  private position: IElementPositionOnCanvas;
 
   public setCharacterId(characterId: number) {
     this.characterId = characterId;
@@ -27,7 +27,7 @@ export default class TokenBuilder {
     return this;
   }
 
-  public setPosition(position: IElementPosition) {
+  public setPosition(position: IElementPositionOnCanvas) {
     this.position = position;
     return this;
   }
