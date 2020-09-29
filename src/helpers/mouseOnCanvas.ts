@@ -8,11 +8,18 @@ function mouseOnCanvas() {
   function setMousePosition(newPosition: IElementPositionOnScreen) {
     let { x, y } = newPosition;
 
-    if (position.x !== x) position.x = x;
+    if (x === 0 && y === 0) reset();
+    else {
+      if (position.x !== x) position.x = x;
 
-    if (position.y !== y) position.y = y;
+      if (position.y !== y) position.y = y;
+      notifyChange();
+    }
+  }
 
-    notifyChange();
+  function reset() {
+    position.x = 0;
+    position.y = 0;
   }
 
   function addObserver(observer: TMouseObserver) {
