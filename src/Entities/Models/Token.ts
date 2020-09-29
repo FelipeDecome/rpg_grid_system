@@ -28,4 +28,16 @@ export default class Token {
   public getCharacterId() {
     return this.characterId;
   }
+
+  public getSize() {
+    return this.size;
+  }
+
+  public getPosition() {
+    return { ...this.position };
+  }
+
+  public isSameToken(id: number) {
+    return this.id === id;
+  }
 }

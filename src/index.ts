@@ -9,4 +9,14 @@ mouseOnCanvas.addObserver(canvas.drawHoveredCell);
 
 const tokenBuilder = new TokenBuilder();
 
-const token = tokenBuilder.setCharacterId(0).setPosition({ row: 2, col: 2 });
+const token = tokenBuilder
+  .setSource("images/token.jpg")
+  .setCharacterId(0)
+  .setPosition({ row: 2, col: 2 })
+  .setSize(2)
+  .build();
+
+canvas.addTokenOnCanvas(token);
+window.onload = () => {
+  canvas.drawTokens();
+};

@@ -6,9 +6,11 @@ import {
   colsCount,
   fillColor,
   gridColor,
+  gridBorderWidth,
   hoveredGridColor,
   rowsCount,
 } from "../config";
+import Token from "../Entities/Models/Token";
 
 function createCanvas() {
   const width = colsCount * cellSize;
@@ -22,6 +24,26 @@ function createCanvas() {
   canvasElement.style.backgroundColor = fillColor;
   rootElement.append(canvasElement);
 
+  const tokensOnCanvas: Token[] = [];
+
+  function addTokenOnCanvas(token: Token) {
+    tokensOnCanvas.push(token);
+  }
+
+  function drawTokens() {
+    tokensOnCanvas.forEach(token => {
+      let tokenSize = token.getSize() * cellSize - 2;
+      let tokenPos = {
+        x: token.getPosition().col * cellSize + 1,
+        y: token.getPosition().row * cellSize + 1,
+      };
+      let image = new Image(tokenSize, tokenSize);
+      image.src = token.getSource();
+
+      context.drawImage(image, tokenPos.x, tokenPos.y, tokenSize, tokenSize);
+    });
+  }
+
   function drawGrid() {
     for (let col = 0; col < colsCount; col++) {
       context.moveTo(col * cellSize, 0);
@@ -34,10 +56,13 @@ function createCanvas() {
     }
 
     context.strokeStyle = gridColor;
+    context.lineWidth = gridBorderWidth;
     context.stroke();
   }
 
   function drawHoveredCell(position: IElementPositionOnScreen) {
+    clearCanvas();
+    drawTokens();
     drawGrid();
 
     const { x, y } = position;
@@ -72,6 +97,8 @@ function createCanvas() {
   }
 
   return {
+    drawTokens,
+    addTokenOnCanvas,
     drawGrid,
     drawHoveredCell,
     clearCanvas,
