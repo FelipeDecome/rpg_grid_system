@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "FelipeDecome <felipe.decome@hotmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
   "devDependencies": {
     "ts-loader": "^8.0.4",
     "typescript": "^4.0.3"
